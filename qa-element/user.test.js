@@ -11,8 +11,6 @@ describe('Cloud Drop - BCE User Pattern Test', () => {
     beforeAll(async () => {
         const { dbAdminTest, dbPasswordTest, dbNameTest } = config;
         mongoConnector = new MongoDBConnector(dbAdminTest, dbPasswordTest, dbNameTest);
-        //mongoConnector = new MongoDBConnector('lightboro', 'gamegaydev2Q3050', 'clouddrop');
-        //mongoConnector = new MongoDBConnector(process.env.dbAdmin, process.env.dbPassword, process.env.dbName);
 
         await mongoConnector.connect();
 
