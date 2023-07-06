@@ -3,7 +3,7 @@ const { User } = require('../entity/user-entity');
 class UserController {
     constructor(mongoDBConnector) {
         this.mongoDBConnector = mongoDBConnector;
-        this.usersCollection = this.mongoDBConnector.client.db("your-database-name").collection("users");
+        this.usersCollection = this.mongoDBConnector.client.db(this.mongoDBConnector.dbName).collection("users");
     }
 
     async registerUser(name, email, password) {
@@ -13,7 +13,14 @@ class UserController {
     }
 
     async getUserByEmail(email) {
-        return await this.usersCollection.findOne({ email });
+        const userData = await this.usersCollection.findOne({ email });
+
+        if (userData) {
+            const { name, email, password } = userData;
+            return new User(name, email, password);
+        }
+
+        return null;
     }
 
     // Additional methods for user-related actions can be defined here
@@ -22,4 +29,3 @@ class UserController {
 module.exports = {
     UserController
 };
-

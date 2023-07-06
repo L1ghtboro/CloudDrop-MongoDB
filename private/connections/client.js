@@ -1,6 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-class MongoDBConnector{
+class MongoDBConnector {
     constructor(dbAdmin, dbPassword, dbName) {
         this.uri = `mongodb+srv://${dbAdmin}:${dbPassword}@${dbName}.${process.env.dbUniqueId}.mongodb.net/?retryWrites=true&w=majority`;
         this.client = new MongoClient(this.uri, {
@@ -10,6 +10,7 @@ class MongoDBConnector{
                 deprecationErrors: true,
             },
         });
+        this.connected = false;
     }
 
     async connect() {
@@ -17,6 +18,7 @@ class MongoDBConnector{
         try {
             await this.client.connect();
             await this.client.db("admin").command({ ping: 1 });
+            this.connected = true;
             console.log("Pinged your deployment. You successfully connected to MongoDB!");
         } catch (error) {
             console.error("Error connecting to MongoDB:", error);
@@ -27,6 +29,7 @@ class MongoDBConnector{
         console.log('Trying to close connection to MongoDB...');
         try {
             await this.client.close();
+            this.connected = false;
             console.log("MongoDB connection closed.");
         } catch (error) {
             console.error("Error closing MongoDB connection:", error);
@@ -41,6 +44,14 @@ class MongoDBConnector{
             console.error("Error getting user ping:", error);
             return null;
         }
+    }
+
+    isConnected() {
+        return this.connected;
+    }
+
+    getClient() {
+        return this.client;
     }
 }
 
