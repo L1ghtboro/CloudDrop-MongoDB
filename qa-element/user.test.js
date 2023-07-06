@@ -2,17 +2,21 @@ const { MongoClient } = require('mongodb');
 const { User } = require('../private/patterns/entity/user-entity');
 const { UserController } = require('../private/patterns/controller/user-controller');
 const { MongoDBConnector } = require('../private/connections/client');
+const config = require('./test-config.json');
 
-describe('Cloud Drop - BCE Pattern Test', () => {
+describe('Cloud Drop - BCE User Pattern Test', () => {
     let mongoClient;
     let mongoConnector;
 
     beforeAll(async () => {
-        mongoConnector = new MongoDBConnector(process.env.dbAdmin, process.env.dbPassword, process.env.dbName);
+        const { dbAdminTest, dbPasswordTest, dbNameTest } = config;
+        mongoConnector = new MongoDBConnector(dbAdminTest, dbPasswordTest, dbNameTest);
+        //mongoConnector = new MongoDBConnector('lightboro', 'gamegaydev2Q3050', 'clouddrop');
+        //mongoConnector = new MongoDBConnector(process.env.dbAdmin, process.env.dbPassword, process.env.dbName);
 
         await mongoConnector.connect();
 
-        mongoClient = mongoConnector.client;
+        mongoClient = mongoConnector.getClient();
     });
 
     afterAll(async () => {
@@ -20,9 +24,14 @@ describe('Cloud Drop - BCE Pattern Test', () => {
     });
 
     afterEach(async () => {
-        if (mongoClient.isConnected()) {
-            const db = mongoClient.db(process.env.dbName);
-            await db.dropDatabase();
+        if (mongoConnector.isConnected()) {
+            try {
+                const db = mongoClient.db(process.env.dbName);
+                await db.dropDatabase();
+                console.log("Test database dropped.");
+            } catch (error) {
+                console.error("Error dropping test database:", error);
+            }
         }
     });
 
@@ -56,6 +65,8 @@ describe('Cloud Drop - BCE Pattern Test', () => {
 
         const testUser = new User(name, email, password);
         const db = mongoClient.db(process.env.dbName);
+
+        // Insert the testUser into the 'users' collection
         await db.collection('users').insertOne(testUser);
 
         const retrievedUser = await userController.getUserByEmail(email);
