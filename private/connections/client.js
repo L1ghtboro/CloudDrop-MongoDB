@@ -1,8 +1,9 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 class MongoDBConnector {
-    constructor(dbAdmin, dbPassword, dbName) {
-        this.uri = `mongodb+srv://${dbAdmin}:${dbPassword}@${dbName}.${process.env.dbUniqueId}.mongodb.net/?retryWrites=true&w=majority`;
+    constructor(dbAdmin, dbPassword, databaseName, collectionName='test') {
+        this.uri = `mongodb+srv://${dbAdmin}:${dbPassword}@${databaseName}.${process.env.dbUniqueId}.mongodb.net/?retryWrites=true&w=majority`;
+        this.dbName = collectionName;
         this.client = new MongoClient(this.uri, {
             serverApi: {
                 version: ServerApiVersion.v1,
