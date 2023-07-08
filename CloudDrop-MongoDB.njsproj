@@ -66,6 +66,9 @@ dbUniqueId=l9rhj9u</Environment>
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
+    <Content Include="routes\upload.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
