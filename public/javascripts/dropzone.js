@@ -27,6 +27,28 @@ $fileInput.on('change', function () {
     }
 
     console.log($(this)[0].files);
+
+    // Send files to the backend
+    const formData = new FormData();
+    const files = $(this)[0].files;
+
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]);
+    }
+
+    $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // Handle success response
+        },
+        error: function (xhr, status, error) {
+            // Handle error response
+        }
+    });
 });
 
 $delete.on('click', function () {

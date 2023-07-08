@@ -1,19 +1,52 @@
 const { File } = require('../entity/file-entity');
+const { MongoClient } = require('mongodb');
 
 class FileController {
-    constructor() {
-        // File controller constructor logic
+    constructor(mongoURL, dbName) {
+        this.mongoURL = mongoURL;
+        this.dbName = dbName;
     }
 
-    async uploadFile(name, size, type) {
-        const newFile = new File(name, size, type);
-        // Logic for uploading the file
-        return newFile;
+    async uploadFile(file) {
+        const client = new MongoClient(this.mongoURL);
+        try {
+            await client.connect();
+            const db = client.db(this.dbName);
+            const filesCollection = db.collection('files');
+            const result = await filesCollection.insertOne(file);
+            return result.insertedId;
+        } finally {
+            await client.close();
+        }
     }
 
-    async getFileByName(name) {
-        // Logic for retrieving a file by name
-        // Return a File object if found, or null if not found
+    async searchFileByName(name) {
+        const client = new MongoClient(this.mongoURL);
+        try {
+            await client.connect();
+            const db = client.db(this.dbName);
+            const filesCollection = db.collection('files');
+            const file = await filesCollection.findOne({ name });
+            if (file) {
+                return new File(file.name, file.size, file.type);
+            }
+            return null;
+        } finally {
+            await client.close();
+        }
+    }
+
+    async getAllFiles() {
+        const client = new MongoClient(this.mongoURL);
+        try {
+            await client.connect();
+            const db = client.db(this.dbName);
+            const filesCollection = db.collection('files');
+            const files = await filesCollection.find().toArray();
+            return files.map(file => new File(file.name, file.size, file.type));
+        } finally {
+            await client.close();
+        }
     }
 
     // Additional methods for file-related actions can be defined here
