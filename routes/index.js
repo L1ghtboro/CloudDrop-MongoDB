@@ -25,4 +25,9 @@ router.get('/', function (req, res) {
     res.render('index', { title: 'CloudDrop' });
 });
 
+/* GET home page. */
+router.get('/upload', function (req, res) {
+    res.render('index', { title: 'CloudDrop' });
+});
+
 module.exports = router;

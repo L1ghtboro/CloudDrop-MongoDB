@@ -38,13 +38,28 @@ dbUniqueId=l9rhj9u</Environment>
     <Content Include="private\connections\client.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="private\patterns\boundary\file-boundary.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="private\patterns\boundary\user-boundary.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="private\patterns\controller\file-controller.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="private\patterns\controller\user-controller.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="private\patterns\entity\file-entity.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="private\patterns\entity\user-entity.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\javascripts\dropzone.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="qa-element\test-config.json">
       <SubType>Code</SubType>
     </Content>
     <Content Include="qa-element\user.test.js">
@@ -55,8 +70,11 @@ dbUniqueId=l9rhj9u</Environment>
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="views\includes\scripts.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\index.pug" />
-    <Content Include="views\layout.pug" />
+    <Content Include="views\includes\layout.pug" />
     <Content Include="views\error.pug" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +91,7 @@ dbUniqueId=l9rhj9u</Environment>
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
+    <Folder Include="views\includes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
