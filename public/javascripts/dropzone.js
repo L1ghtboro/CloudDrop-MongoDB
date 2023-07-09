@@ -27,13 +27,12 @@ $fileInput.on('change', function () {
     }
 
     console.log($(this)[0].files);
-
     // Send files to the backend
     const formData = new FormData();
     const files = $(this)[0].files;
 
     for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i]);
+        formData.append('file', files[i]);
     }
 
     $.ajax({
@@ -49,6 +48,29 @@ $fileInput.on('change', function () {
             // Handle error response
         }
     });
+
+    // Send files to the backend
+    formData = new FormData();
+    const file = $(this)[0].file;
+
+    for (let i = 0; i < files.length; i++) {
+        formData.append('file', file[i]);
+    }
+
+    $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // Handle success response
+        },
+        error: function (xhr, status, error) {
+            // Handle error response
+        }
+    });
+
 });
 
 $delete.on('click', function () {
