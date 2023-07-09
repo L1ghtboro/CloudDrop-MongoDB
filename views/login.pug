@@ -1,0 +1,54 @@
+extends includes/layout
+
+block content
+    .login-box
+        ul.links
+            li.signup-active
+                a.goToSignInAnim
+                    | Sign Up
+            li.signin-inactive
+                a.goToSignUpAnim
+                    | Sign In
+
+            
+        form.form-signin.hidden
+            .user-box
+                .emailSignIn
+                    input(type='text' name='emailLogin' required='')
+                    label(for='emailLogin') Email
+            .user-box
+                .passwordSignIn
+                    input(type='password' name='password' required='')
+                    label(for='password') Password
+            a(href='#').submit
+                span
+                span
+                span
+                span
+                |       Submit
+
+        form.form-signup
+            .user-box
+                .emailSignUp
+                    input(type='text' name='emailSignup' required='')
+                    label(for='emailSignup') Email
+            .user-box
+                .dropSignUp
+                    input(type='text' name='dropboxSignup' required='')
+                    label(for='dropboxSignup') Your Dropbox
+            .user-box
+                .passwordSignUp
+                    input(type='text' name='passwordSignup' required='')
+                    label(for='passwordSignup') Enter password
+            .user-box
+                .passwrodRepeat
+                    input(type='text' name='passwrodrepeat' required='')
+                    label(for='passwrodrepeat') Repeat your password
+            a(href='#').submit
+                span
+                span
+                span
+                span
+                |       Submit
+
+    include includes/scripts-auth

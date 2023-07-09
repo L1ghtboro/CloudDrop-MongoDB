@@ -56,6 +56,10 @@ dbUniqueId=l9rhj9u</Environment>
     <Content Include="private\patterns\entity\user-entity.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\javascripts\auth.js">
+      <SubType>Code</SubType>
+      <TestFramework>Jasmine</TestFramework>
+    </Content>
     <Content Include="public\javascripts\dropzone.js">
       <SubType>Code</SubType>
     </Content>
@@ -73,6 +77,9 @@ dbUniqueId=l9rhj9u</Environment>
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="views\includes\scripts-auth.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\includes\scripts.pug">
       <SubType>Code</SubType>
     </Content>
@@ -97,6 +104,9 @@ dbUniqueId=l9rhj9u</Environment>
     <Folder Include="views\includes\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="views\login.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config" />
   </ItemGroup>
